@@ -1,5 +1,5 @@
 {
-  "name": "nav",
+  "name": "search",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -18,6 +18,6 @@
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack --mode production",
-    "serve": "serve dist -p 3002"
+    "serve": "serve dist -p 3003"
   }
 }

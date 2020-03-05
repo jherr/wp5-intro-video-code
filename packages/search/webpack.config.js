@@ -38,10 +38,10 @@ module.exports = {
       library: { type: 'var', name: 'search' },
       filename: 'remoteEntry.js',
       remotes: {
-        home: 'home'
+        home: 'home',
+        nav: 'nav'
       },
       exposes: {
-        Header: './src/Header'
       },
       shared: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons']
     }),

@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index',
@@ -14,7 +13,7 @@ module.exports = {
   },
 
   output: {
-    publicPath: 'http://localhost:3001/'
+    publicPath: 'http://localhost:3003/'
   },
 
   resolve: {
@@ -29,32 +28,25 @@ module.exports = {
         options: {
           presets: [require.resolve('@babel/preset-react')]
         }
-      },
-      {
-        test: /\.md$/,
-        loader: 'raw-loader'
       }
     ]
   },
 
   plugins: [
-    new CopyPlugin([
-      { from: 'fruit', to: 'fruit' },
-    ]),
     new ModuleFederationPlugin({
-      name: 'home',
-      library: { type: 'var', name: 'home' },
+      name: 'nav',
+      library: { type: 'var', name: 'nav' },
       filename: 'remoteEntry.js',
       remotes: {
-        nav: 'nav'
       },
       exposes: {
-        ProductCarousel: './src/ProductCarousel'
+        Header: './src/Header'
       },
       shared: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons']
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
-    }),
+      template: './public/index.html',
+      chunks: ['main']
+    })
   ]
 };
