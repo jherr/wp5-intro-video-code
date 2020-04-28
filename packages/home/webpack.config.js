@@ -51,7 +51,7 @@ module.exports = {
       exposes: {
         ProductCarousel: './src/ProductCarousel'
       },
-      shared: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons']
+      // shared: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons']
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html'
