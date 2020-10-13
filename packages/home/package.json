@@ -9,19 +9,25 @@
     "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.1.1",
-    "html-webpack-plugin": "git://github.com/ScriptedAlchemy/html-webpack-plugin#master",
+    "html-webpack-plugin": "^4.5.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "serve": "^11.3.0",
-    "webpack": "git://github.com/webpack/webpack.git#dev-1",
+    "webpack": "5.0.0",
     "webpack-cli": "^3.3.11"
   },
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack --mode production",
-    "serve": "serve dist -p 3001"
+    "serve": "serve dist -p 3001",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-links": "^5.3.18",
+    "@storybook/addons": "^5.3.18",
+    "@storybook/react": "^5.3.18",
     "raw-loader": "^4.0.0"
   }
 }

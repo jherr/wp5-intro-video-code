@@ -1,52 +1,69 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
+const deps = require("./package.json").dependencies;
 module.exports = {
-  entry: './src/index',
+  entry: "./src/index",
   cache: false,
 
-  mode: 'development',
-  devtool: 'source-map',
+  mode: "development",
+  devtool: "source-map",
 
   optimization: {
-    minimize: false
+    minimize: false,
   },
 
   output: {
-    publicPath: 'http://localhost:3002/'
+    publicPath: "http://localhost:3002/",
   },
 
   resolve: {
-    extensions: ['.jsx', '.js', '.json']
+    extensions: [".jsx", ".js", ".json"],
   },
 
   module: {
     rules: [
       {
+        test: /\.m?js/,
+        type: "javascript/auto",
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
         test: /\.jsx?$/,
-        loader: require.resolve('babel-loader'),
+        loader: require.resolve("babel-loader"),
         options: {
-          presets: [require.resolve('@babel/preset-react')]
-        }
-      }
-    ]
+          presets: [require.resolve("@babel/preset-react")],
+        },
+      },
+    ],
   },
 
   plugins: [
     new ModuleFederationPlugin({
-      name: 'search',
-      library: { type: 'var', name: 'search' },
-      filename: 'remoteEntry.js',
+      name: "search",
+      filename: "remoteEntry.js",
       remotes: {
-        nav: 'nav'
+        home: "home@http://localhost:3001/remoteEntry.js",
+        nav: "nav@http://localhost:3003/remoteEntry.js",
       },
-      exposes: {
+      exposes: {},
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
+        },
+        "react-dom": {
+          singleton: true,
+          requiredVersion: deps["react-dom"],
+        },
       },
-      shared: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons']
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-      chunks: ['main']
-    })
-  ]
+      template: "./public/index.html",
+      chunks: ["main"],
+    }),
+  ],
 };
